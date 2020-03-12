@@ -78,4 +78,13 @@ describe "Heap" do
   # Another assert
   expect(removed).must_equal "Pasta"
   end
+
+  it "removing from a tree of single node" do
+    heap.add(100, "Foie gras")
+
+    removed = heap.remove 
+
+    expect(removed).must_equal "Foie gras"
+    expect heap.empty?
+  end
 end
