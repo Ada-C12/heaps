@@ -27,7 +27,10 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    swap(0, @store.length - 1)
+    removed_node = @store.pop()
+    heap_down(0)
+    return removed_node.value
   end
 
 
@@ -73,7 +76,30 @@ class MinHeap
   #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    left_child = get_left_child(index)
+    right_child = get_right_child(index)
+
+    until @store[left_child].nil? && @store[right_child].nil?
+      if @store[left_child].key < @store[right_child].key
+        smallest_child = left_child
+      else
+        smallest_child = right_child
+      end
+
+      if @store[smallest_child].key < @store[index].key
+        swap(smallest_child, index)
+        return heap_down(smallest_child)
+      end
+
+    end
+  end
+
+  def get_left_child(index)
+    return (index * 2) + 1
+  end
+
+  def get_right_child(index)
+    return (index * 2) + 2
   end
 
   def get_parent(index)
