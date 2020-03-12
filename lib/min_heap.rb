@@ -65,7 +65,7 @@ class MinHeap
   #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    # raise NotImplementedError, "Method not implemented yet..."
   end
 
   # If you want a swap method... you're welcome
