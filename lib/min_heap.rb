@@ -17,7 +17,7 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    # raise NotImplementedError, "Method not implemented yet..."
   end
 
   # This method removes and returns an element from the heap
@@ -25,7 +25,7 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    # raise NotImplementedError, "Method not implemented yet..."
   end
 
 
@@ -47,7 +47,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    # raise NotImplementedError, "Method not implemented yet..."
   end
 
   private
