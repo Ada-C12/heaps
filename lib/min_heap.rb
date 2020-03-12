@@ -35,8 +35,6 @@ class MinHeap
 
     heap_down(0) unless @store.empty?
 
-
-
     return removed.value
   end
 
@@ -98,65 +96,53 @@ class MinHeap
   # This helper method takes an index and 
   #  moves it up the heap if it's smaller
   #  than it's parent node.
-  def heap_down(index)
-    return
+  def heap_down(parentIndex)
+    # compare node @ parentIndex to its children
+    # if parent <= both children, min heap :-)  base case
+    # if parent > either/both child, swap places with the smaller child, then min_heap_down(childIndex), recursion!
+    # when no more children to compare to, base case :-)
 
+    # first find out if parent has LC or RC
+    indexLC = parentIndex * 2 + 1 
+    indexRC = indexLC + 1
 
-      # compare node @ parentIndex to its children
-    # # if parent <= both children, min heap :-)  base case
-    # # if parent > either/both child, swap places with the smallest child, then min_heap_down(childIndex), recursion!
-    # # base case is if no more children to compare to
-    
-    # maybeLChildIndex = parentIndex * 2 + 1
-    # if @store.length > maybeLChildIndex
-    #   # yes there's at least LC to compare to
-      
-    #   # look for LC & RC, do either exist?
-    #   LC_index = maybeLChildIndex
-    #   RC_index = nil
-    #   if @store.length > maybeLChildIndex + 1
-    #     # RC exists
-    #     RC_index = LC_index + 1  
-    #   end
-      
-    #   if !RC_index 
-    #     # only left child exists
-    #     if @store[parentIndex] <= @store[LC_index]
-    #       # min heap :-) base case
-    #       return 
-    #     else
-    #       swap(parentIndex, LC_index)
-    #       min_heap_down(LC_index)
-    #     end
+    if @store.length > indexRC
+      # both LC & RC exist, need to compare with both children
+      if (@store[parentIndex].key > @store[indexLC].key) && (@store[parentIndex].key > @store[indexRC].key)
+        # both LC & RC broke the heap property, which one is smaller?
+        @store[indexLC].key > @store[indexRC].key ? (indexOfSmallerChild = indexRC) : (indexOfSmallerChild = indexLC)
+        swap(parentIndex, indexOfSmallerChild)
+        heap_down(indexOfSmallerChild)
         
-    #   else
-    #     # need to compare both children
-    #     if (@store[parentIndex] > @store[LC_index]) && (@store[parentIndex] > @store[RC_index])
-    #       # which of the children is smaller?
-    #       @store[LC_index] > @store[RC_index] ? (indexOfSmallerChild = RC_index) : (indexOfSmallerChild = LC_index)
-    #       swap(parentIndex, indexOfSmallerChild)
-    #       min_heap_down(indexOfSmallerChild)
-    #       return
-    #     elsif @store[parentIndex] > @store[LC_index]
-    #       # only LC broke the heap property
-    #       swap(parentIndex, LC_index)
-    #       min_heap_down(LC_index)
-    #       return
-    #     elsif @store[parentIndex] > @store[RC_index]
-    #       # only RC broke the heap property
-    #       swap(parentIndex, RC_index)
-    #       min_heap_down(RC_index)
-    #       return
-    #     else 
-    #       # both children are bigger than parent -> min heap :-) base case
-    #       return
-    #     end
-    #   end
-      
-    # else
-    #   # base case, no more children left to compare to
-    #   return
-    # end
+      elsif @store[parentIndex].key > @store[indexLC].key
+        # only LC broke the heap property
+        swap(parentIndex, indexLC)
+        heap_down(indexLC)
+        
+      elsif @store[parentIndex].key > @store[indexRC].key
+        # only RC broke the heap property
+        swap(parentIndex, indexRC)
+        heap_down(indexRC)
+        
+      else 
+        # both children are bigger than parent -> min heap :-) base case
+        return
+      end
+
+    elsif @store.length > indexLC
+      # only LC exists
+      if @store[parentIndex].key <= @store[indexLC].key
+        # min heap :-) base case
+        return 
+      else
+        swap(parentIndex, indexLC)
+        heap_down(indexLC)
+      end
+
+    else
+      # no children, base case
+      return
+    end
   end
 
   # If you want a swap method... you're welcome
