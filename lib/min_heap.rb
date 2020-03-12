@@ -17,7 +17,9 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    new_node = HeapNode.new(key, value)
+    @store << new_node
+    heap_up(@store.length - 1)
   end
 
   # This method removes and returns an element from the heap
@@ -58,7 +60,13 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def heap_up(index)
-
+    parent_index = get_parent(index)
+    if @store[parent_index].key > @store[index].key
+      swap(parent_index, index)
+      while parent_index > 0
+        return heap_up(parent_index)
+      end
+    end
   end
 
   # This helper method takes an index and
@@ -66,6 +74,10 @@ class MinHeap
   #  than it's parent node.
   def heap_down(index)
     raise NotImplementedError, "Method not implemented yet..."
+  end
+
+  def get_parent(index)
+    return (index - 1) / 2
   end
 
   # If you want a swap method... you're welcome
