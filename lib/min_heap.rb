@@ -96,6 +96,8 @@ class MinHeap
   # This helper method takes an index and 
   #  moves it up the heap if it's smaller
   #  than it's parent node.
+  # Time complexity: O(log n)
+  # Space complexity: O(1)
   def heap_down(parentIndex)
     # compare node @ parentIndex to its children
     # if parent <= both children, min heap :-)  base case
