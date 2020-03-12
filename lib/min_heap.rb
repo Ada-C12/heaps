@@ -14,8 +14,8 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n), from heap_up()
+  # Space Complexity: O(1)
   def add(key, value = key)
     newNode = HeapNode.new(key, value)
     @store << newNode
@@ -26,8 +26,8 @@ class MinHeap
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n), from heap_down()
+  # Space Complexity: O(1)
   def remove()
     
     swap(0, @store.length - 1)

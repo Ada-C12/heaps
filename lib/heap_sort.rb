@@ -21,4 +21,21 @@ def heapsort(list)
 end
 
 
-### I *might* attempt O(1) space complexity later, for now this is good enough to pass.
+### Attempting O(1) space complexity...
+# I think I'll need a new class for MinHeap...
+
+
+# see heapsort_inplace.jpg for how the orig list and new MinHeap are sharing the same space
+# basically the heap grows in the list space as the unsorted shares drop, and vice versa
+def heapsort_in_place(list)
+  heap = MinHeap.new()
+  listLength = list.length
+
+  # add each element onto MinHeap
+  currIndex = 0
+  while currIndex < listLength
+    heap.add(list[currIndex])
+  end
+  
+  # start plucking out the roots from the MinHeap
+end
