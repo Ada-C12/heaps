@@ -14,8 +14,8 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(logn)
+  # Space Complexity: O(1) if you're adding one new node
   def add(key, value = key)
     new_node = HeapNode.new(key, value)
     @store << new_node
@@ -26,14 +26,14 @@ class MinHeap
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(logn)
+  # Space Complexity: O(1)
   def remove()
     swap(0, @store.length - 1)
     removed_node = @store.pop
     heap_down(0)
 
-    return removed_node
+    return removed_node.value
   end
 
 
@@ -52,10 +52,10 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1)
+  # Space complexity: O(1)
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store.length == 0
   end
 
   private
@@ -63,8 +63,8 @@ class MinHeap
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1)
+  # Space complexity: O(1)
   def heap_up(index)
     return if index == 0
 
@@ -84,7 +84,11 @@ class MinHeap
   def heap_down(index)
     return if index == @store.length - 1
 
-    smaller_child_index = find_smaller_child_index((2 * index + 1), (2 * index + 2))
+    index_1 = 2 * index + 1
+    index_2 = 2 * index + 2
+    return if index_1 > @store.length - 1
+
+    smaller_child_index = find_smaller_child_index(index_1, index_2)
     
     if @store[index].key > @store[smaller_child_index].key
       swap(index, smaller_child_index)
@@ -94,7 +98,9 @@ class MinHeap
     return
   end
 
-  def find_smaller_child_index(index_1, index_2)
+  def find_smaller_child_index(index_1, index_2) 
+    return index_1 if index_2 > @store.length - 1
+
     if @store[index_1].key <= @store[index_2].key
       return index_1
     end
