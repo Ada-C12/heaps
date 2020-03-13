@@ -66,10 +66,11 @@ class MinHeap
     parent_index = get_parent(index)
     if @store[parent_index].key > @store[index].key
       swap(parent_index, index)
-      while parent_index > 0
-        return heap_up(parent_index)
+      if parent_index > 0
+        heap_up(parent_index)
       end
     end
+    return
   end
 
   # This helper method takes an index and
@@ -79,8 +80,12 @@ class MinHeap
     left_child = get_left_child(index)
     right_child = get_right_child(index)
 
-    until @store[left_child].nil? && @store[right_child].nil?
-      if @store[left_child].key < @store[right_child].key
+    unless @store[left_child].nil? && @store[right_child].nil?
+      if !@store[left_child].nil? && @store[right_child].nil?
+        smallest_child = left_child
+      elsif @store[left_child].nil? && !@store[right_child].nil?
+        smallest_child = right_child
+      elsif @store[left_child].key < @store[right_child].key
         smallest_child = left_child
       else
         smallest_child = right_child
@@ -88,10 +93,10 @@ class MinHeap
 
       if @store[smallest_child].key < @store[index].key
         swap(smallest_child, index)
-        return heap_down(smallest_child)
+        heap_down(smallest_child)
       end
-
     end
+    return
   end
 
   def get_left_child(index)
