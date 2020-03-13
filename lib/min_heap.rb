@@ -8,7 +8,7 @@ class HeapNode
 end
 
 class MinHeap
-
+  attr_reader :store
   def initialize
     @store = []
   end
@@ -23,13 +23,14 @@ class MinHeap
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def remove()
     swap(0, -1)
     temp = @store[-1]
     @store.pop
     heap_down(0)
+
     return temp.value
   end
 
@@ -49,10 +50,10 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1)
+  # Space complexity: O(1)
   def empty?
-    return @store.nil?
+    return @store[0].nil?
   end
 
   private
@@ -80,6 +81,12 @@ class MinHeap
 
     return if @store[left_child] == nil && @store[right_child] == nil
 
+    if @store[right_child] == nil && @store[left_child].key < @store[index].key
+      return swap(index, left_child)
+    elsif @store[right_child] == nil && @store[left_child].key > @store[index].key
+      return
+    end
+    
     return if @store[left_child].key > @store[index].key && @store[right_child].key > @store[index].key
 
     if @store[left_child].key < @store[right_child].key
