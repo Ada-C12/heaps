@@ -8,6 +8,7 @@ class HeapNode
 end
 
 class MinHeap
+  attr_reader :store
   
   def initialize
     @store = []
@@ -28,11 +29,16 @@ class MinHeap
   # Time Complexity: O(log(n)) where n is the size of the heap
   # Space Complexity: O(log(n)) where n is the size of the heap
   def remove()
+    return nil if @store.empty?
+    
     last_index = @store.length - 1
     swap(0, last_index)
     
     removed_node = @store.pop()
-    heap_down(0)
+    
+    unless @store.empty?
+      heap_down(0)
+    end      
     
     return removed_node.value
   end
@@ -82,13 +88,21 @@ class MinHeap
   # This helper method takes an index and 
   #  moves it up the heap if it's smaller
   #  than it's parent node.
+  # Time complexity: O(log(n)) where n is the size of the heap
+  # Space complexity: O(log(n)) where n is the size of the heap
   def heap_down(index)
     left_child_index = (index * 2) + 1
     right_child_index = (index * 2) + 2
     
     return if @store[left_child_index].nil? && @store[right_child_index].nil?
-    return if @store[left_child_index].key > @store[index].key && @store[right_child_index].key > @store[index].key
     
+    if @store[right_child_index].nil? && @store[left_child_index].key < @store[index].key
+      return swap(index, left_child_index)
+    elsif @store[right_child_index].nil? && @store[left_child_index].key > @store[index].key
+      return
+    end
+    
+    return if @store[left_child_index].key > @store[index].key && @store[right_child_index].key > @store[index].key
     if @store[left_child_index].key < @store[right_child_index].key
       swap(index, left_child_index)
       return heap_down(left_child_index)
