@@ -1,3 +1,4 @@
+
 class HeapNode
   attr_reader :key, :value
 
@@ -8,6 +9,7 @@ class HeapNode
 end
 
 class MinHeap
+  attr_reader :store
 
   def initialize
     @store = []
@@ -17,7 +19,10 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    new_node = HeapNode.new(key, value)
+    @store << new_node
+    new_heapnode = (@store.length - 1)
+    heap_up(new_heapnode)
   end
 
   # This method removes and returns an element from the heap
@@ -25,9 +30,12 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    index = (@store.length - 1)
+    swap(0, index)
+    deleted = @store.pop
+    heap_down(0) unless @store[0].nil?
+    return deleted.value
   end
-
 
   # Used for Testing
   def to_s
@@ -39,7 +47,7 @@ class MinHeap
     end
 
     output += @store.last.value + "]"
-      
+
     return output
   end
 
@@ -47,7 +55,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return true if @store.empty?
   end
 
   private
@@ -57,15 +65,38 @@ class MinHeap
   #  It could be **very** helpful for the add method.
   # Time complexity: ?
   # Space complexity: ?
+
   def heap_up(index)
-    
+    parent = (index - 1) / 2
+    return if index == 0 || @store[index].key > @store[parent].key
+    swap(index, parent)
+    return heap_up(parent)
   end
 
-  # This helper method takes an index and 
+  # This helper method takes an index and
   #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    left_child = (index * 2) + 1
+    right_child = (index * 2) + 2
+
+    return if @store[left_child].nil? && @store[right_child].nil?
+
+    if @store[right_child].nil? && @store[left_child].key < @store[index].key
+      return swap(index, left_child)
+    elsif @store[right_child].nil? && @store[left_child].key > @store[index].key
+      return
+    end
+
+    return if @store[left_child].key > @store[index].key && @store[right_child].key > @store[index].key
+
+    if @store[left_child].key < @store[right_child].key
+      swap(index, left_child)
+      return heap_down(left_child)
+    else
+      swap(index, right_child)
+      return heap_down(right_child)
+    end
   end
 
   # If you want a swap method... you're welcome
