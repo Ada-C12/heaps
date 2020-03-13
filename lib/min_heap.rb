@@ -9,8 +9,8 @@ end
 
 class MinHeap
 
-  def initialize
-    @store = []
+  def initialize(store = [])
+    @store = store
   end
 
   # This method adds a HeapNode instance to the heap
