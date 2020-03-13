@@ -1,6 +1,6 @@
 class HeapNode
   attr_reader :key, :value
-
+  
   def initialize(key, value)
     @key = key
     @value = value
@@ -8,66 +8,110 @@ class HeapNode
 end
 
 class MinHeap
-
+  attr_reader :store
+  
   def initialize
     @store = []
   end
-
+  
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log(n)) where n is the size of the tree
+  # Space Complexity: O(log(n)) where n is the size of the tree
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    new_node = HeapNode.new(key, value)
+    @store << new_node
+    last_index = @store.length - 1
+    return heap_up(last_index)
   end
-
+  
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log(n)) where n is the size of the heap
+  # Space Complexity: O(log(n)) where n is the size of the heap
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    return nil if @store.empty?
+    
+    last_index = @store.length - 1
+    swap(0, last_index)
+    
+    removed_node = @store.pop()
+    
+    unless @store.empty?
+      heap_down(0)
+    end      
+    
+    return removed_node.value
   end
-
-
+  
+  
   # Used for Testing
   def to_s
     return "[]" if @store.empty?
-
+    
     output = "["
     (@store.length - 1).times do |index|
       output += @store[index].value + ", "
     end
-
+    
     output += @store.last.value + "]"
-      
+    
     return output
   end
-
+  
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1)
+  # Space complexity: O(1)
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return true if @store[0].nil?
+    return false
   end
-
+  
   private
-
+  
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(log(n)) where n is the size of the heap
+  # Space complexity: O(log(n)) where n is the size of the heap because it's making a recursive stack
   def heap_up(index)
+    parent_index = (index - 1) / 2
     
+    # if it's at index 0, stop (it's already the root)
+    return if index == 0 || @store[index].key > @store[parent_index].key
+    
+    # if parent node's key is greater than the addition key, swap them
+    # if @store[parent_index].key > @store[index].key
+    swap(index, parent_index)
+    return heap_up(parent_index)
   end
-
+  
   # This helper method takes an index and 
   #  moves it up the heap if it's smaller
   #  than it's parent node.
+  # Time complexity: O(log(n)) where n is the size of the heap
+  # Space complexity: O(log(n)) where n is the size of the heap
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    left_child_index = (index * 2) + 1
+    right_child_index = (index * 2) + 2
+    
+    return if @store[left_child_index].nil? && @store[right_child_index].nil?
+    
+    if @store[right_child_index].nil? && @store[left_child_index].key < @store[index].key
+      return swap(index, left_child_index)
+    elsif @store[right_child_index].nil? && @store[left_child_index].key > @store[index].key
+      return
+    end
+    
+    return if @store[left_child_index].key > @store[index].key && @store[right_child_index].key > @store[index].key
+    if @store[left_child_index].key < @store[right_child_index].key
+      swap(index, left_child_index)
+      return heap_down(left_child_index)
+    else
+      swap(index, right_child_index)
+      return heap_down(right_child_index)
+    end
   end
-
+  
   # If you want a swap method... you're welcome
   def swap(index_1, index_2)
     temp = @store[index_1]
