@@ -52,7 +52,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    return @store.empty?
+    return @store.nil?
   end
 
   private
