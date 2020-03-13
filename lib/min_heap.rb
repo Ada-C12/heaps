@@ -90,7 +90,12 @@ class MinHeap
     right_child_index = (index * 2) + 2
 
     until @store[left_child_index].nil? && @store[right_child_index].nil?
-      if @store[left_child_index].key < @store[right_child_index].key
+      if @store[left_child_index].nil?
+        smallest_child = right_child_index
+      elsif @store[right_child_index].nil?
+        smallest_child = left_child_index
+
+      elsif @store[left_child_index].key < @store[right_child_index].key
         smallest_child = left_child_index
       else
         smallest_child = right_child_index
