@@ -3,7 +3,7 @@ require_relative "test_helper"
 describe "Heap" do
   let(:heap) {MinHeap.new}
   it "can be created" do
-    
+
     # Assert
     expect(heap).must_be_instance_of MinHeap
   end
@@ -77,5 +77,12 @@ describe "Heap" do
 
   # Another assert
   expect(removed).must_equal "Pasta"
+  end
+
+  it "evaluates empty correctly" do
+    expect(heap.empty?).must_equal true
+
+    heap.add(3, "Pasta")
+    expect(heap.empty?).must_equal false
   end
 end
