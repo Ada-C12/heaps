@@ -9,6 +9,7 @@ def heapsort(list)
 
   until list.empty?
     new_heap.add(list.pop)
+  end
 
   index = 0
   until new_heap.empty?
