@@ -1,8 +1,23 @@
-
+require_relative "./min_heap"
 
 # This method uses a heap to sort an array.
 # Time Complexity:  ?
 # Space Complexity: ?
 def heap_sort(list)
-  raise NotImplementedError, "Method not implemented yet..."
+  # raise NotImplementedError, "Method not implemented yet..."
+  heap = MinHeap.new
+
+  list.each do |v|
+    heap.add(v)
+  end
+  sort_array = []
+
+  index = 0
+  while index < list.length
+    result = heap.pop
+    sort_array << result
+    index += 1
+  end
+
+  return sort_array
 end
