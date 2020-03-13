@@ -9,6 +9,8 @@ end
 
 class MinHeap
 
+  attr_reader :store
+
   def initialize
     @store = []
   end
@@ -82,8 +84,14 @@ class MinHeap
   def heap_down(index)
     left_child = (2 * index) + 1
     right_child = (2 * index) + 2
+    
+    return if @store[left_child] == nil && @store[right_child] == nil 
 
-    return if @store[left_child] == nil && @store[right_child] == nil
+    if @store[right_child].nil? && @store[left_child].key < @store[index].key
+      return swap(index, left_child)
+    elsif @store[right_child].nil? && @store[left_child].key > @store[index].key
+      return
+    end
 
     return if @store[left_child].key > @store[index].key && @store[right_child].key > @store[index].key
 
