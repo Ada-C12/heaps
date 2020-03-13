@@ -30,10 +30,11 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    deleted_node = @store[0]
-
-    @store.delete_at(0)
+    last_index = @store.length - 1
+    swap(0,last_index)
+    deleted_node = @store.pop
     heap_down(0)
+    
     return deleted_node.value
   end
 
@@ -56,7 +57,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return true if @store[0] == nil
   end
 
   private
