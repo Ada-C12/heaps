@@ -53,29 +53,29 @@ describe "Heap" do
 
   it "can remove nodes in the proper order" do
    # Arrange
-   heap.add(3, "Pasta")
-   heap.add(6, "Soup")
-   heap.add(1, "Pizza")
-   heap.add(0, "Donuts")
-   heap.add(16, "Cookies")
-   heap.add(57, "Cake")
+   heap.add(3, 3)
+   heap.add(6, 6)
+   heap.add(1, 1)
+   heap.add(0, 0)
+   heap.add(16, 16)
+   heap.add(57, 57)
 
    # Act
    removed = heap.remove
 
    # Assert
-   expect(removed).must_equal "Donuts"
+   expect(removed).must_equal 0
 
    # Another Act
    removed = heap.remove
 
    # Another assert
-   expect(removed).must_equal "Pizza"
+   expect(removed).must_equal 1
 
   # Another Act
   removed = heap.remove
 
   # Another assert
-  expect(removed).must_equal "Pasta"
+  expect(removed).must_equal 3
   end
 end
