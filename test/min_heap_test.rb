@@ -83,5 +83,23 @@ describe "Heap" do
 
     # Another assert
     expect(removed).must_equal "Pasta"
+
+    # Another Act
+    removed = heap.remove
+
+    # Another assert
+    expect(removed).must_equal "Soup"
+
+    # Another Act
+    removed = heap.remove
+
+    # Another assert
+    expect(removed).must_equal "Cookies"
+
+    # Another Act
+    removed = heap.remove
+
+    # Another assert
+    expect(removed).must_equal "Cake"
   end
 end

@@ -16,7 +16,6 @@ def heap_sort(list)
   
   length.times do
     item = heap.remove
-
     sorted_array << item
   end
 
