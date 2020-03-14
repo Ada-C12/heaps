@@ -8,36 +8,34 @@ class HeapNode
 end
 
 class MinHeap
-
   def initialize
     @store = []
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n)
+  # Space Complexity: O(1)
   def add(key, value = key)
     newNode = HeapNode.new(key, value)
-
     @store << newNode
 
     length = @store.length
-
     heap_up(length - 1)
   end
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n)
+  # Space Complexity: O(1)
   def remove()
     length = @store.length
     swap(0, length - 1)
+
     removed_node = @store.pop
     heap_down(0)
+    
     return removed_node.value
   end
-
 
   # Used for Testing
   def to_s
@@ -57,9 +55,14 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store.empty?
   end
 
+
+
+
+
+  
   private
 
   # This helper method takes an index and
