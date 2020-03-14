@@ -86,23 +86,23 @@ class MinHeap
     left_child_index = (index * 2) + 1
     right_child_index = (index * 2) + 2
 
-    until @store[left_child_index].nil? && @store[right_child_index].nil?
-      if @store[left_child_index].nil?
-        smallest_child = right_child_index
-      elsif @store[right_child_index].nil?
-        smallest_child = left_child_index
-      elsif @store[left_child_index].key < @store[right_child_index].key
-        smallest_child = left_child_index
-      else
-        smallest_child = right_child_index
-      end
-      
-      if @store[index].key > @store[smallest_child].key
-        swap(index, smallest_child)
-      end
+    return if @store[left_child_index].nil? && @store[right_child_index].nil?
 
-      return heap_down(smallest_child)  
+    if @store[left_child_index].nil?
+      smallest_child_index = right_child_index
+    elsif @store[right_child_index].nil?
+      smallest_child_index = left_child_index
+    elsif @store[left_child_index].key < @store[right_child_index].key
+      smallest_child_index = left_child_index
+    else
+      smallest_child_index = right_child_index
     end
+      
+    if @store[index].key > @store[smallest_child_index].key
+      swap(index, smallest_child_index)
+    end
+
+    return heap_down(smallest_child_index)  
   end
 
   # If you want a swap method... you're welcome
