@@ -45,10 +45,10 @@ class MinHeap
 
     output = "["
     (@store.length - 1).times do |index|
-      output += @store[index].value + ", "
+      output += @store[index].value.to_s + ", "
     end
 
-    output += @store.last.value + "]"
+    output += @store.last.value.to_s + "]"
       
     return output
   end
