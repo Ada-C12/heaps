@@ -28,6 +28,10 @@ class MinHeap
   # Time Complexity: O(log n)
   # Space Complexity: O(1)
   def remove()
+    if @store.empty?
+      return nil
+    end
+
     length = @store.length
     swap(0, length - 1)
 
@@ -100,6 +104,8 @@ class MinHeap
       
     if @store[index].key > @store[smallest_child_index].key
       swap(index, smallest_child_index)
+    else
+      return
     end
 
     return heap_down(smallest_child_index)  
