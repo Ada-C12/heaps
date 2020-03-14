@@ -27,7 +27,13 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    if @store.empty?
+      return nil
+    end
+    swap(0, @store.length-1)
+    min = @store.pop
+    heap_down(0) unless @store.empty?
+    return min.value
   end
   
   
@@ -66,17 +72,17 @@ class MinHeap
       unless parent < 0
         if @store[index].key < @store[parent].key
           swap(index, parent)
-          heap_up(index)
+          heap_up(parent)
         end
       end
-      # for left children
-      if index % 2 == 1
-        parent = (index - 1) / 2
-        unless parent < 0
-          if @store[index].key < @store[parent].key
-            swap(index, parent)
-            heap_up(index)
-          end
+    end
+    # for left children
+    if index % 2 == 1
+      parent = (index - 1) / 2
+      unless parent < 0
+        if @store[index].key < @store[parent].key
+          swap(index, parent)
+          heap_up(parent)
         end
       end
     end
@@ -86,7 +92,13 @@ class MinHeap
   #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    if !@store[index+1].nil? && @store[index].key > @store[index+1].key
+      swap(index, index+1)
+      heap_down(index+1)
+    elsif !@store[index+2].nil? && @store[index].key > @store[index+2].key
+      swap(index, index+2)
+      heap_down(index+2)
+    end
   end
   
   # If you want a swap method... you're welcome
