@@ -2,7 +2,7 @@ require_relative "max_heap"
 
 # This method uses a heap to sort an array.
 # Time Complexity:  O(n log n)
-# Space Complexity: O(1)
+# Space Complexity: O(log n) - since using recurisve heap down
 def heap_sort(list)
   max_heap = build_max_heap(list)
   
