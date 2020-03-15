@@ -46,10 +46,8 @@ end
 
 def find_min(list)
   return list[0] if list.length == 1
-  swap(list, 0, list.length-1)
-  temp = list.pop
-  puts temp
-  heap_down(list, 0)
+  temp = list[0]
+  heap_down(list, 1)
   return temp + find_min(list[1...list.length])
 end
 
