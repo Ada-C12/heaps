@@ -7,7 +7,7 @@ class MinHeap
 
   # This method adds a HeapNode instance to the heap
   # Time Complexity: O(log n)
-  # Space Complexity: O(1)
+  # Space Complexity: O(log n)
   def add(key, value = key)
     # add new node to end
     @store << HeapNode.new(key, value)
@@ -19,7 +19,7 @@ class MinHeap
   
   # This method removes and returns an element from the heap maintaining the heap structure
   # Time Complexity: O(log n)
-  # Space Complexity: O(1)
+  # Space Complexity: O(log n)
   def remove()
     return nil if empty?
 
@@ -62,7 +62,7 @@ class MinHeap
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
   # Time complexity: O(log n)
-  # Space complexity: O(1)
+  # Space complexity: O(log n) - because recursive calls
   def heap_up(index)
     return if index.nil? || @store[index].nil?
 
