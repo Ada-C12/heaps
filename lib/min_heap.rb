@@ -27,7 +27,8 @@ class MinHeap
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
   # Time Complexity: O(log n)
-  # Space Complexity: ?
+  # Space Complexity: O(1) It only stores the result variable, which is not altered by 
+  # the size of the input.
   def remove()
     if @store.empty?
       return nil
@@ -67,8 +68,8 @@ class MinHeap
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(log n); it compares with parent nodes, not all nodes.
+  # Space complexity: O(1); swaps are happening in-place.
   def heap_up(index) 
     return if index == 0
     if index % 2 == 0
@@ -104,6 +105,7 @@ class MinHeap
   end
   
   # If you want a swap method... you're welcome
+  # Thank you!
   def swap(index_1, index_2)
     temp = @store[index_1]
     @store[index_1] = @store[index_2]
