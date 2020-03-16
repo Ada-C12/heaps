@@ -17,7 +17,15 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    if @store.length == 0
+      @store << HeapNode.new(key, value)
+      return
+    end
+
+    @store << HeapNode.new(key, value)
+    # heap_up(@store.length - 1)
+    heap_up(@store.length - 1)
+    
   end
 
   # This method removes and returns an element from the heap
@@ -57,8 +65,20 @@ class MinHeap
   #  It could be **very** helpful for the add method.
   # Time complexity: ?
   # Space complexity: ?
-  def heap_up(index)
-    
+  def heap_up(current_index)
+    # the last index is being passed in
+
+    parent_node_index = (current_index + 1)/2 - 1
+
+    while current_index > 0
+      if @store[current_index].key < @store[parent_node_index].key
+        swap(parent_node_index, current_index)
+        current_index = parent_node_index
+        parent_node_index = (current_index + 1)/2 - 1
+      else  
+        return;
+      end
+    end 
   end
 
   # This helper method takes an index and 
@@ -75,3 +95,13 @@ class MinHeap
     @store[index_2] = temp
   end
 end
+
+# heap = MinHeap.new
+#  heap.add(3, "Pasta")
+# print heap.add(2, "Soup")
+# heap.add(3, "Pasta")
+# heap.add(6, "Soup")
+# heap.add(1, "Pizza")
+# heap.add(0, "Donuts")
+# heap.add(16, "Cookies")
+# heap.add(57, "Cake")
