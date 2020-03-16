@@ -64,43 +64,31 @@ class MinHeap
   # Time complexity: O(logn)
   # Space complexity: O(1)
   def heap_up(index)
-    parent_index = (index % 2 == 0) ? (index - 2)/2 : (index -1)/2
-    while index > 0 && @store[index].key < @store[parent_index].key
-      swap(index, parent_index)
-      index = parent_index
-      parent_index = (index % 2 == 0) ? (index - 2)/2 : (index -1)/2
+    parent = (index % 2 == 0) ? index/2 - 1 : index/2
+    while index > 0 && @store[index].key < @store[parent].key
+      swap(index, parent)
+      index = parent
+      parent = (index % 2 == 0) ? index/2 - 1 : index/2
     end
   end
   
   # This helper method takes an index and 
-  #  moves it up the heap if it's smaller
-  #  than it's parent node.
-  def heap_down(index)
-    left_index = index * 2 + 1
-    right_index = index * 2 + 2
+  #  moves it down the heap if it's larger
+  #  than it's child node.
+  def heap_down(current)
+    left = 1
     size = @store.length
+    while (current < size) && (left < size)
+      smaller = left
+      right = left + 1
+      
+      smaller = right if right < size && @store[right].key < @store[left].key
 
-    while (index < size) && (left_index < size || right_index < size)
-      left = @store[left_index]
-      right = @store[right_index]
-
-      child_index = left_index
-      if (left && right) && 
-        left.key > right.key
-        child_index = right_index
-      elsif !left && right
-        child_index = right_index
-      end
-
-      if @store[index].key > @store[child_index].key
-        swap(index, child_index)
-        index = child_index
-        left_index = index * 2 + 1
-        right_index = index * 2 + 2
-      else
-        break
-      end
-    end  
+      break if @store[current].key < @store[smaller].key
+      swap(current, smaller)
+      current = smaller
+      left = 2*current + 1
+    end
   end
   
   # If you want a swap method... you're welcome
