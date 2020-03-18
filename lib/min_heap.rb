@@ -14,8 +14,8 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(logn) At worse, the heap_up function will have to iterate logn times to add a heapnode from the leaf to the root of the heap
+  # Space Complexity: O(logn) the heap_up function doesn't store additional variables, but does make logn recursive calls to the memory stack in worst case
   def add(key, value = key)
     @store << HeapNode.new(key, value)
     
@@ -24,8 +24,8 @@ class MinHeap
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(logn) At worse, the heap_down function will have to iterate logn times to remove a heapnode 
+  # Space Complexity: O(logn) the remove function doesn't store additional variables, but does make logn recursive calls to the memory stack in worst case
   def remove()
 
     temp_root = @store[0]
@@ -53,8 +53,8 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(n) checks the length of @store, which varies linearly with the length of the heap
+  # Space complexity: O(1) variables stay constant regardless of length of heap
   def empty?
     return @store.empty?
   end
@@ -64,8 +64,8 @@ class MinHeap
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time Complexity: O(logn) At worse, the heap_up function will have to iterate logn times to add a heapnode from the leaf to the root of the heap
+  # Space Complexity: O(logn) the heap_up function doesn't store additional variables, but does make logn recursive calls to the memory stack in worst case
   def heap_up(current_index)
     parent_index = (current_index - 1)/2
 
@@ -73,7 +73,6 @@ class MinHeap
       return
     else
       swap(current_index, parent_index)
-
       heap_up(parent_index)
     end
   end
