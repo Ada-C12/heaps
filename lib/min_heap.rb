@@ -8,7 +8,7 @@ class HeapNode
 end
 
 class MinHeap
-
+  attr_reader :store
   def initialize
     @store = []
   end
@@ -27,11 +27,12 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
+
     temp_root = @store[0]
     swap(0, @store.length - 1)
     @store.delete_at(@store.length - 1)
 
-    heap_down() unless @store.empty?
+    heap_down(0) unless @store.empty?
 
     return temp_root.value
   end
@@ -80,19 +81,41 @@ class MinHeap
   # This helper method takes an index and 
   #  moves it down the heap if it's larger
   #  than it's children nodes.
-  def heap_down(current_index = 0)
+  def heap_down(current_index)
     l_child_index = (current_index * 2) + 1
     r_child_index = (current_index * 2) + 2
+    right_exists = exists?(r_child_index)
+    left_exists = exists?(l_child_index)
 
-    if !exists?(l_child_index) && !exists?(r_child_index)
-      return
-    elsif @store[l_child_index].key < @store[r_child_index].key
-      swap(current_index, l_child_index)
-      heap_down(l_child_index)
-    elsif @store[l_child_index].key > @store[r_child_index].key
-      swap(current_index, r_child_index)
-      heap_down(r_child_index)
+    # if both exist
+    if left_exists && right_exists 
+      # if current is less than both
+      if (@store[current_index].key < @store[l_child_index].key && @store[current_index].key < @store[r_child_index].key)
+        return 
+      # if left is less than right
+      elsif @store[l_child_index].key < @store[r_child_index].key
+        swap(current_index, l_child_index)
+        heap_down(l_child_index)
+      # if right is less than left
+      elsif @store[r_child_index].key < @store[l_child_index].key
+        swap(current_index, r_child_index)
+        heap_down(r_child_index)
+      end
+    # if only left exists
+    elsif left_exists 
+      if @store[l_child_index].key < @store[current_index].key
+        swap(current_index, l_child_index)
+        heap_down(l_child_index)
+      end
+    # if only right exists
+    elsif right_exists
+      if @store[r_child_index].key < @store[current_index].key
+        swap(current_index, r_child_index)
+        heap_down(r_child_index)
+      end
     end
+    
+    return
   end
 
   def exists?(index)
