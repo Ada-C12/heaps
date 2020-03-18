@@ -8,6 +8,7 @@ class HeapNode
 end
 
 class MinHeap
+  attr_reader :store
 
   def initialize
     @store = []
@@ -71,8 +72,8 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: O(1) -- I *think* this code will stop running once count gets
-  # higher than 0 but I'm not certain
+  # Time complexity: O(1) -- I *think* this code will stop running once 
+  # count gets higher than 0 but I'm not certain
   # Space complexity: O(1)
   def empty?
     @store.length == 0 ? true : false
