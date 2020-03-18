@@ -28,13 +28,15 @@ describe "Heap" do
 
     # Act
     output = heap.to_s
-
+    
     # Assert
 
     expect(output).must_equal "[Pizza, Soup, Pasta]"
+    
   end
 
   it "adds nodes in a proper order with a lot of nodes" do
+    
     # Arrange
     heap.add(3, "Pasta")
     heap.add(6, "Soup")
