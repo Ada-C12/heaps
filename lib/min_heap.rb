@@ -124,7 +124,6 @@ class MinHeap
     # the bottom of the heap
     if @store[index] && @store[index].key > @store[left_child_index].key
       @store[index], @store[left_child_index] = @store[left_child_index], @store[index] 
-      puts "After swap, the parent node is #{@store[index].key}:#{@store[index].value} and the left child node is #{@store[left_child_index].key}:#{@store[left_child_index].value}"
       heap_down(left_child_index)
     end
 
