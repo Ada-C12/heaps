@@ -17,7 +17,9 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    @store << HeapNode.new(key, value)
+    
+    heap_up(@store.length - 1)
   end
 
   # This method removes and returns an element from the heap
@@ -25,7 +27,13 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    temp_root = @store[0]
+    swap(0, @store.length - 1)
+    @store.delete_at(@store.length - 1)
+
+    heap_down() unless @store.empty?
+
+    return temp_root.value
   end
 
 
@@ -47,7 +55,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store.empty?
   end
 
   private
@@ -57,15 +65,38 @@ class MinHeap
   #  It could be **very** helpful for the add method.
   # Time complexity: ?
   # Space complexity: ?
-  def heap_up(index)
-    
+  def heap_up(current_index)
+    parent_index = (current_index - 1)/2
+
+    if !exists?(parent_index) || @store[current_index].key > @store[parent_index].key
+      return
+    else
+      swap(current_index, parent_index)
+
+      heap_up(parent_index)
+    end
   end
 
   # This helper method takes an index and 
-  #  moves it up the heap if it's smaller
-  #  than it's parent node.
-  def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+  #  moves it down the heap if it's larger
+  #  than it's children nodes.
+  def heap_down(current_index = 0)
+    l_child_index = (current_index * 2) + 1
+    r_child_index = (current_index * 2) + 2
+
+    if !exists?(l_child_index) && !exists?(r_child_index)
+      return
+    elsif @store[l_child_index].key < @store[r_child_index].key
+      swap(current_index, l_child_index)
+      heap_down(l_child_index)
+    elsif @store[l_child_index].key > @store[r_child_index].key
+      swap(current_index, r_child_index)
+      heap_down(r_child_index)
+    end
+  end
+
+  def exists?(index)
+    return index > -1 && index < @store.length
   end
 
   # If you want a swap method... you're welcome
