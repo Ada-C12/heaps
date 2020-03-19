@@ -86,7 +86,7 @@ class MinHeap
     # raise NotImplementedError, "Method not implemented yet..."
     left_child = (index * 2) + 1
     right_child = (index * 2) + 2
-    return if @store[left_child].nil? 
+    return if @store[left_child].nil? && @store[right_child].nil?
 
     if @store[left_child].key < @store[right_child].key
       smaller = left_child
