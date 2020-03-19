@@ -84,9 +84,20 @@ class MinHeap
   #  than it's parent node.
   def heap_down(index)
     # raise NotImplementedError, "Method not implemented yet..."
-    
-  end
+    left_child = (index * 2) + 1
+    right_child = (index * 2) + 2
+    return if @store[left_child].nil? 
 
+    if @store[left_child].key < @store[right_child].key
+      smaller = left_child
+    else
+      smaller = right_child
+    end
+    if @store[index].key > @store[smaller].key
+      swap(index, smaller)
+      heap_down(smaller)
+    end
+  end
 
 
   # If you want a swap method... you're welcome
