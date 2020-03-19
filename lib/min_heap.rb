@@ -14,8 +14,8 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: O(h) - height of the heap
-  # Space Complexity: O(h)
+  # Time Complexity: O(log n) - height of the heap is a logarithmic relationship to the number of nodes
+  # Space Complexity: O(log n)
   def add(key, value = key)
     @store << HeapNode.new(key, value)
     heap_up(@store.length - 1)
@@ -23,8 +23,8 @@ class MinHeap
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: O(h)
-  # Space Complexity: O(h)
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def remove()
     # raise NotImplementedError, "Method not implemented yet..."
     return nil if @store.nil?
