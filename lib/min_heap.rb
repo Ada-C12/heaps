@@ -55,11 +55,7 @@ class MinHeap
   # Time complexity: O(1)
   # Space complexity: O(1)
   def empty?
-    if @store == []
-      return true
-    else
-      return false
-    end
+    return @store.empty?
   end
   
   private
