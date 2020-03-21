@@ -1,17 +1,19 @@
 
 
 # This method uses a heap to sort an array.
-# Time Complexity: O(nlogn)??
+# Time Complexity: O(nlogn)
 # Space Complexity: O(1)
 def heapsort(list)
   return list if list.length <= 1
 
-  # build a max heap
-  list.length.times do |i|
-    heap_up(list, i)
-  end
-
   last = list.length - 1
+
+  # build a max heap
+  # must heap down and start from the back of the array
+  # key for O(n) time
+  list.length.times do |i|
+    heap_down(list, list.length - i, last)
+  end
 
   # pop off the top of the heap
   # place it in the last unsorted slot
