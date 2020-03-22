@@ -87,20 +87,25 @@ class MinHeap
     elsif left_child_index && !right_child_index
       if @store[index].key > @store[left_child_index].key
         swap(index,left_child_index)
+        heap_down(left_child_index)
       end
     elsif !left_child_index && right_child_index
       if @store[index].key > @store[right_child_index].key
         swap(index,right_child_index)
+        heap_down(right_child_index)
       end
     else
       if @store[left_child_index].key < @store[right_child_index].key
-        index_with_smaller_key = left_child_index
+        child_index_with_smaller_key = left_child_index
       else
-        index_with_smaller_key = right_child_index
+        child_index_with_smaller_key = right_child_index
       end
-      swap(index, index_with_smaller_key)
+
+      if @store[index].key > @store[child_index_with_smaller_key].key
+        swap(index, child_index_with_smaller_key)
+        heap_down(child_index_with_smaller_key)
+      end  
     end
-    heap_down(index_with_smaller_key)  
   end
 
   # If you want a swap method... you're welcome
