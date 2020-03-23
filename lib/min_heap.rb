@@ -43,10 +43,10 @@ class MinHeap
 
     output = "["
     (@store.length - 1).times do |index|
-      output += @store[index].value + ", "
+      output += "#{@store[index].value}" + ", "
     end
 
-    output += @store.last.value + "]"
+    output += "#{@store.last.value}" + "]"
       
     return output
   end
@@ -90,6 +90,9 @@ class MinHeap
 
     smaller_child_index = find_smaller_child_index(index_1, index_2)
     
+    # puts "@store[index].key: #{@store[index].key}"
+    # puts "@store[smaller_child_index].key: #{@store[smaller_child_index].key}"
+
     if @store[index].key > @store[smaller_child_index].key
       swap(index, smaller_child_index)
       heap_down(smaller_child_index)
@@ -114,4 +117,25 @@ class MinHeap
     @store[index_1] = @store[index_2]
     @store[index_2] = temp
   end
+end
+
+def k_closest(points, k)
+  return [] if points.length == 0 || k == 0
+  return points if k > points.length
+  
+  heap = MinHeap.new
+  points.each do |arr|
+      heap.add(dist(arr), arr)
+  end
+
+  puts heap.to_s
+  
+  output = []
+  
+  k.times do 
+      output << heap.remove
+      puts heap.to_s
+  end
+  
+  return output
 end
