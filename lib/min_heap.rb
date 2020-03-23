@@ -50,10 +50,10 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: o(1) - the access time complexity of an array 
+  # Space complexity: o(1) - the access space complexity of an array
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store.empty?
   end
 
   private
@@ -69,8 +69,6 @@ class MinHeap
     if @store[index].key < @store[parent_index].key
       swap(index,parent_index)
       heap_up(parent_index)
-    else
-      return
     end
   end
 
@@ -79,8 +77,8 @@ class MinHeap
   #  than its child node.
   def heap_down(index)
     return if index == nil
-    left_child_index = (((index * 2) + 1) < (@store.length - 1)) ? ((index * 2) + 1) : nil
-    right_child_index = (((index * 2) + 2) < (@store.length - 1)) ? ((index * 2) + 2) : nil
+    left_child_index = (((index * 2) + 1) < (@store.length)) ? ((index * 2) + 1) : nil
+    right_child_index = (((index * 2) + 2) < (@store.length)) ? ((index * 2) + 2) : nil
 
     if !left_child_index && !right_child_index
       return
@@ -88,11 +86,6 @@ class MinHeap
       if @store[index].key > @store[left_child_index].key
         swap(index,left_child_index)
         heap_down(left_child_index)
-      end
-    elsif !left_child_index && right_child_index
-      if @store[index].key > @store[right_child_index].key
-        swap(index,right_child_index)
-        heap_down(right_child_index)
       end
     else
       if @store[left_child_index].key < @store[right_child_index].key
