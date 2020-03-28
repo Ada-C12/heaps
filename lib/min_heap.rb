@@ -87,15 +87,16 @@ class MinHeap
     left_child = 2 * index + 1
     right_child = 2 * index + 2
 
-    if left_child < @store.length && right_child < @store.length
+    # continue to heap down UNTIL the parent is smaller or == its children
+    return if @store[index].key <= @store[left_child].key && @store[index].key <= @store[right_child].key
       if @store[left_child].key < @store[right_child].key     # swap the lesser child with its parent
         swap(index, left_child)
-        heap_down(left_child)    # continue to heap down 
+        heap_down(left_child)    
       else
         swap(index, right_child)
         heap_down(right_child)
       end
-    end
+    
   end
 
   # If you want a swap method... you're welcome
