@@ -79,23 +79,27 @@ class MinHeap
     end
   end
 
-  # This helper method takes an index and 
-  #  moves it up the heap if it's smaller
-  #  than it's parent node.
   def heap_down(index)
     # given the index of parent node, compare its R child and L child
     left_child = 2 * index + 1
     right_child = 2 * index + 2
 
-    # continue to heap down UNTIL the parent is smaller or == its children
-    return if @store[index].key <= @store[left_child].key && @store[index].key <= @store[right_child].key
-      if @store[left_child].key < @store[right_child].key     # swap the lesser child with its parent
+    # check if the parent has any children
+    # check if right child is nil, if so check if left child is greater/smaller than the parent
+
+    if right_child < @store.length # if R child is == length, this means that the R child is nil
+      if @store[left_child].key < @store[right_child].key  # swap the lesser child with its parent
         swap(index, left_child)
         heap_down(left_child)    
       else
         swap(index, right_child)
         heap_down(right_child)
       end
+    elsif left_child < @store.length # we only have a L child
+      if @store[index].key > @store[left_child].key
+        swap(index, left_child)
+      end
+    end
     
   end
 
