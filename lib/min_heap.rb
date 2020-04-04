@@ -80,23 +80,18 @@ class MinHeap
   def heap_down(index)
     left_child = index*2+1
     right_child = index*2+2
-    smaller_child = 0
+    return if @store[left_child].nil?
     
-    if @store[left_child].key < @store[right_child].key
-      smaller_child = left_child
-      
-    elsif @store[right_child].nil?
-      smaller_child = left_child  
-      
-    else
+    smaller_child = left_child
+    if @store[right_child] && (@store[right_child].key < @store[smaller_child].key)
       smaller_child = right_child
     end
     
-    if @store[index].key > @store[right_child].key
-      swap(smaller_child, index)
-      heap_up(smaller_child)
+    if @store[index].key > @store[smaller_child].key
+      swap(index, smaller_child)
+      heap_down(smaller_child)
     end
-  end
+  end 
   
   # If you want a swap method... you're welcome :)
   def swap(index_1, index_2)
