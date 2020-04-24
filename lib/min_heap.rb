@@ -8,14 +8,13 @@ class HeapNode
 end
 
 class MinHeap
-  
   def initialize
     @store = []
   end
   
   # This method adds a HeapNode instance to the heap
   # Time Complexity: O(log n) where n is number of nodes
-  # Space Complexity: O(1)
+  # Space Complexity: O(log n)
   def add(key, value)
     @store << HeapNode.new(key, value)
     
@@ -25,9 +24,11 @@ class MinHeap
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
   # Time Complexity: O(log n) where n is number of nodes
-  # Space Complexity: O(1)
+  # Space Complexity: O(log n)
   def remove()
     # binding.pry
+    return ArgumentError if @store == nil
+    
     to_remove = @store[0]
     swap(0, (@store.length - 1))
     @store.pop
@@ -72,8 +73,6 @@ class MinHeap
       if @store[index].key < @store[parent].key
         swap(index, parent)
         heap_up(parent)
-      else
-        return
       end
     end
     return
@@ -86,7 +85,7 @@ class MinHeap
     left_child = (index * 2 + 1)
     right_child = (index * 2 + 2)
     
-    until @store[left_child] == nil || @store[right_child] == nil
+    if @store[left_child] && @store[right_child]
       if (@store[index].key > @store[left_child].key) || (@store[index].key > @store[right_child].key)
         if @store[left_child].key < @store[right_child].key
           swap(index, left_child)
@@ -96,8 +95,16 @@ class MinHeap
           heap_down(right_child)
         end
       end
-      return
     end
+    
+    if @store[left_child] && @store[right_child] == nil
+      if @store[left_child].key < @store[index].key
+        swap(index, left_child)
+        heap_down(left_child)
+      end
+    end
+    
+    return
   end
   
   # If you want a swap method... you're welcome
