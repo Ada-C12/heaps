@@ -8,7 +8,8 @@ class HeapNode
 end
 
 class MinHeap
-
+  attr_reader :store
+  
   def initialize
     @store = []
   end
@@ -66,6 +67,7 @@ class MinHeap
     return index if index == 0
 
     parent_index = (index - 1)/2
+    left_child_i = parent_index * 2 + 1
 
     if @store[index].key < @store[parent_index].key
       swap(index, parent_index)
