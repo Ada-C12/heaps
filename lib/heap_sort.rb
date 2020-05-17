@@ -1,7 +1,7 @@
 require_relative 'min_heap'
 # This method uses a heap to sort an array.
-# Time Complexity:  ?
-# Space Complexity: ?
+# Time Complexity:  O(log n)
+# Space Complexity: O(n)
 def heapsort(list)
   return list if list.length <= 1
 
